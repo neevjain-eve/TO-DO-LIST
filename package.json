@@ -1,0 +1,9 @@
+{
+  "name": "employee-task-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Employee Task Manager - Vercel serverless functions + KV storage",
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
