@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/app.js", "destination": "/public/app.js" }
+  ],
+  "crons": [
+    { "path": "/api/sync-calendar", "schedule": "*/15 * * * *" }
+  ]
+}
