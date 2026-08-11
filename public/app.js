@@ -271,13 +271,13 @@ function renderManagerLoginsPanel() {
       employeesCache.map(function (e) { return '<option value="' + e.id + '"' + (m.employeeId === e.id ? ' selected' : '') + '>' + e.name + '</option>'; }).join('') +
       '</select>';
     return '<tr><td>' + m.name + '</td><td style="font-family:monospace;font-size:12px;">' + (m.username || '-') + '</td><td>' + (m.department || '-') + '</td>' +
-      '<td>' + linkSelect + '</td>' +
+      
       '<td><span class="badge ' + (m.active ? 's-completed' : 'b-low') + '">' + (m.active ? 'Active' : 'Inactive') + '</span></td>' +
       '<td><button class="btn btn-sm" data-mgr-rename="' + m.id + '" data-current="' + (m.username || '') + '">Rename login</button> ' +
       '<button class="btn btn-sm" data-mgr-pw="' + m.id + '">Change password</button> ' +
       '<button class="btn btn-sm" data-mgr-toggle="' + m.id + '" data-active="' + m.active + '">' + (m.active ? 'Deactivate' : 'Activate') + '</button> ' +
       '<button class="btn btn-sm btn-outline-danger" data-mgr-del="' + m.id + '">Delete</button></td></tr>';
-  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted)">No managers yet.</td></tr>';
+  }).join('') || '<tr><td </td></tr>';
   document.querySelectorAll('[data-mgr-link]').forEach(function (s) {
     s.addEventListener('change', function () {
       var employeeId = s.value ? Number(s.value) : null;
