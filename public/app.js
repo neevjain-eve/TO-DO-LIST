@@ -43,6 +43,37 @@ document.getElementById('seedBtn').addEventListener('click', function () {
   }).catch(function (e) { showLoginErr(e.message); });
 });
 
+// Shared PDKA Azure AD app registration (same one used across the other
+// firm apps). Client-side sign-in only -- api/ms-login.js re-verifies the
+// resulting access token against Microsoft Graph before trusting it, and
+// only matches it to an ALREADY EXISTING username/password account.
+var ETM_MS_CLIENT_ID = '1c7835f2-1f9c-4089-acc6-afd98e7d079c';
+var ETM_MS_TENANT_ID = 'e59dbd77-92dd-44d5-bf18-06de4bc8ce9c';
+var etmMsal = null;
+function getEtmMsal() {
+  if (etmMsal) return etmMsal;
+  if (typeof msal === 'undefined') return null;
+  etmMsal = new msal.PublicClientApplication({
+    auth: { clientId: ETM_MS_CLIENT_ID, authority: 'https://login.microsoftonline.com/' + ETM_MS_TENANT_ID, redirectUri: location.href.split('?')[0].split('#')[0] },
+    cache: { cacheLocation: 'localStorage', storeAuthStateInCookie: true },
+  });
+  return etmMsal;
+}
+document.getElementById('msSignInBtn').addEventListener('click', function () {
+  var app = getEtmMsal();
+  if (!app) { showLoginErr('Microsoft sign-in could not load. Try again or use your username/password.'); return; }
+  app.loginPopup({ scopes: ['User.Read'] }).then(function (result) {
+    return api('/ms-login', { method: 'POST', body: { accessToken: result.accessToken } });
+  }).then(function (data) {
+    session = data;
+    localStorage.setItem('etm_session', JSON.stringify(session));
+    enterApp();
+  }).catch(function (e) {
+    if (e && e.errorCode === 'user_cancelled') return;
+    showLoginErr(e.message || 'Microsoft sign-in failed.');
+  });
+});
+
 document.getElementById('signInBtn').addEventListener('click', function () {
   var u = document.getElementById('u').value.trim();
   var p = document.getElementById('p').value;
