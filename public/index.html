@@ -75,6 +75,8 @@ tr.clickable:hover{background:#F3F4F6;}
     <p class="sub">PDKA &mdash; live, saved data</p>
     <div id="loginErr" class="err hidden"></div>
     <div id="loginOk" class="ok hidden"></div>
+    <button class="btn" style="width:100%;background:#2f2f2f;color:#fff;margin-bottom:14px" id="msSignInBtn">Sign in with Microsoft</button>
+    <hr style="margin:14px 0;border:none;border-top:1px solid var(--border);">
     <div class="field"><label>Username</label><input id="u" placeholder="Username"></div>
     <div class="field"><label>Password</label><input id="p" type="password" placeholder="Password"></div>
     <button class="btn btn-primary" style="width:100%" id="signInBtn">Sign in</button>
@@ -209,6 +211,7 @@ tr.clickable:hover{background:#F3F4F6;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script src="app.js"></script>
 </body>
